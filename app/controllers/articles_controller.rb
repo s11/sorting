@@ -1,19 +1,9 @@
 class ArticlesController < ApplicationController
 
     def sort
-#      params[:faqs].each_with_index do |id, index|
-#        Faq.update_all([’position=?’, index+1], [’id=?’, id])
-#      end
-#      puts "-------------------------"
-#      puts "-------------------------"
-#      puts params[:article].to_a
-#      puts "-------------------------"
       @articles_array = params[:article].to_a
       @articles_array.each_with_index do |a,index|
         @article = Article.find(a.to_i)
-        puts ">>>>>>>>>>>>>>>>>>>"
-        puts @article.name
-        puts ">>>>>>>>>>>>>>>>>>>"
         @article.update_attributes!(:position => index+1)
       end
       render :nothing => true
