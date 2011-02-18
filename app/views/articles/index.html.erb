@@ -1,0 +1,59 @@
+<h1>Listing articles</h1>
+<!--<ul id="articles">
+  <%# @articles.each do |article| %>
+    <%# content_tag_for :li, article do %>
+      <span class="handle">[drag]</span>
+      <%#= link_to article.name, article_path(article) %>
+    <%# end %>
+  <%# end %>
+</ul>-->
+
+
+<ul id="articles">
+  <% @articles.each do |t| %>
+    <li id="article_<%= t.id -%>">
+      <span class="name">
+        <%= t.name -%>
+      </span>
+      <span class="handle" id="<%= t.id %>">[handle]<span>
+    </li>
+  <% end %>
+</ul>
+<%= link_to 'New article', new_article_path %><br/>
+<!--<a id="ujs" href="#int">Unobstrusive Javascript!</a>-->
+<%#= sortable_element('articles', :url => sort_articles_path) %>
+<%#= sortable_element('articles'), :url => sort_articles_path %>
+<script>
+<% content_for :javascript do %>
+
+  <% javascript_tag do %>
+     $('#articles').sortable(
+        {
+          axis: 'y',
+          dropOnEmpty:false,
+          handle: '.handle',
+          cursor: 'crosshair',
+          items: 'li',
+          opacity: 0.4,
+          scroll: true,
+          update: function(){
+            $.ajax({
+                type: 'post',
+                data: $('#articles').sortable('serialize'), //+ '&id=<%#=@articles.id-%>',
+                //data: $(this).attr('id'),
+                dataType: 'script',
+                complete: function(request){
+                    $('#articles').effect('highlight');
+                  },
+                url: '/articles/sort'})
+            }
+          })
+          //$('.handle').click(function(){
+            //alert("HIIIIII");
+            //alert($(this).attr('id'));
+          //})
+
+    <% end %>
+
+<% end %>
+</script>
