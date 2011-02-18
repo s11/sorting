@@ -6,3 +6,24 @@ $(document).ready(function(){
     })
 })
 
+$('#articles').sortable(
+        {
+          axis: 'y',
+          dropOnEmpty:false,
+          handle: '.handle',
+          cursor: 'crosshair',
+          items: 'li',
+          opacity: 0.4,
+          scroll: true,
+          update: function(){
+            $.ajax({
+                type: 'post',
+                data: $('#articles').sortable('serialize'), //+ '&id=<%#=@articles.id-%>',
+                //data: $(this).attr('id'),
+                dataType: 'script',
+                complete: function(request){
+                    $('#articles').effect('highlight');
+                  },
+                url: '/articles/sort'})
+            }
+          })
