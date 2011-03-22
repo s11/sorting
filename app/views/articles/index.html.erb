@@ -10,12 +10,14 @@
 
 
 <ul id="articles">
-  <% @articles.each do |t| %>
-    <li id="article_<%= t.id -%>">
+  <% @articles.each do |article| %>
+    <li class="list_articles">
       <span class="name">
-        <%= t.name -%>
+        <%= link_to article.name, edit_article_path(article) %>
+        <%#= article.name -%> <%= link_to 'Destroy', article_path(article), :confirm => 'Are you sure?', :method => :delete %>
       </span>
-      <span class="handle">[change article order? just drag and drop ]<span>
+      <span class="handle">[change article order? just drag and drop ]</span>
+      <%= link_to "UP", up_article_path(article) %> | <%= link_to "Down", down_article_path(article) %>
     </li>
   <% end %>
 </ul>

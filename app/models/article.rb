@@ -1,4 +1,5 @@
 class Article < ActiveRecord::Base
- # acts_as_list
- # default_scope => "position"
+#  Acts as list used for positioning the article element
+  acts_as_list #:scope => :position_id
+  #default_scope => position
 end

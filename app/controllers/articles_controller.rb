@@ -1,13 +1,26 @@
 class ArticlesController < ApplicationController
-
-    def sort
-      @articles_array = params[:article].to_a
-      @articles_array.each_with_index do |a,index|
-        @article = Article.find(a.to_i)
-        @article.update_attributes!(:position => index+1)
-      end
-      render :nothing => true
+#Link used http://blog.nominet.org.uk/tech/2006/03/06/using-acts_as_list-in-ruby-on-rails/ for acts as list
+  ####This method will call during drag and drop operations
+  def sort
+    @articles_array = params[:article].to_a
+    @articles_array.each_with_index do |a,index|
+      @article = Article.find(a.to_i)
+      @article.update_attributes!(:position => index+1)
     end
+    render :nothing => true
+  end
+
+  ##This method will call during lower down the article
+  def down
+    @article = Article.find(params[:id])
+    @article.move_lower
+    redirect_to articles_path
+  end
+  def up
+    @article = Article.find(params[:id])
+    @article.move_higher
+    redirect_to articles_path
+  end
   # GET /articles
   # GET /articles.xml
   def index
@@ -50,11 +63,11 @@ class ArticlesController < ApplicationController
   # POST /articles.xml
   def create
     @article = Article.new(params[:article])
-
     respond_to do |format|
       if @article.save
         flash[:notice] = 'Article was successfully created.'
-        format.html { redirect_to(@article) }
+        #format.html { redirect_to(@article) }
+        format.html { redirect_to(articles_path) }
         format.xml  { render :xml => @article, :status => :created, :location => @article }
       else
         format.html { render :action => "new" }
@@ -71,7 +84,8 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.update_attributes(params[:article])
         flash[:notice] = 'Article was successfully updated.'
-        format.html { redirect_to(@article) }
+        #format.html { redirect_to(@article) }
+        format.html { redirect_to(articles_path) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
