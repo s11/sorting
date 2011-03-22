@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
 #Link used http://blog.nominet.org.uk/tech/2006/03/06/using-acts_as_list-in-ruby-on-rails/ for acts as list
+# ibrm@axisbank.com  Axis bank mail id
   ####This method will call during drag and drop operations
   def sort
     @articles_array = params[:article].to_a
