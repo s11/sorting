@@ -17,6 +17,8 @@ class ArticlesController < ApplicationController
     @article.move_lower
     redirect_to articles_path
   end
+
+  ##This method will call during move upper the article
   def up
     @article = Article.find(params[:id])
     @article.move_higher
