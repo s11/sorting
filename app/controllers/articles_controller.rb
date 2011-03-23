@@ -50,7 +50,7 @@ class ArticlesController < ApplicationController
   # GET /articles/new.xml
   def new
     @article = Article.new
-
+    @categories = Category.all
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @article }
@@ -65,6 +65,9 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.xml
   def create
+    puts ":::::::::::::::::::::::::::::::::::::::::"
+    puts params[:category]
+    puts ":::::::::::::::::::::::::::::::::::::::::"
     @article = Article.new(params[:article])
     respond_to do |format|
       if @article.save
