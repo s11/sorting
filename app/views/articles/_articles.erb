@@ -1,0 +1,4 @@
+<%= link_to article.name, edit_article_path(article) %>
+<%= (link_to "UP", up_article_path(article))unless @articles.first.position == article.position %>
+<%= (link_to "Down", down_article_path(article))unless @articles.last.position == article.position %>
+<%= link_to 'Destroy', article_path(article), :confirm => 'Are you sure?', :method => :delete %>

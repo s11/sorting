@@ -3,6 +3,9 @@ class ArticlesController < ApplicationController
 # ibrm@axisbank.com  Axis bank mail id
   ####This method will call during drag and drop operations
   def sort
+    puts "----------------------"
+    puts request.xhr?
+    puts "----------------------"
     @articles_array = params[:article].to_a
     @articles_array.each_with_index do |a,index|
       @article = Article.find(a.to_i)

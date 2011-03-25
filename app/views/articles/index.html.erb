@@ -1,24 +1,22 @@
 <h1>Listing articles</h1>
 <!--<ul id="articles">
-  <%# @articles.each do |article| %>
-    <%# content_tag_for :li, article do %>
+<%# @articles.each do |article| %>
+<%# content_tag_for :li, article do %>
       <span class="handle">[drag]</span>
-      <%#= link_to article.name, article_path(article) %>
-    <%# end %>
-  <%# end %>
+<%#= link_to article.name, article_path(article) %>
+<%# end %>
+<%# end %>
 </ul>-->
-
-
 <ul id="articles">
   <% @articles.each do |article| %>
     <li class="list_articles" id="article_<%= article.id -%>">
       <span class="name">
-        <%= link_to article.name, edit_article_path(article) %> 
-        <%= link_to "UP", up_article_path(article) %> | <%= link_to "Down", down_article_path(article) %> | 
+        <%= link_to article.name, edit_article_path(article) %>
+        <%= (link_to "UP", up_article_path(article))unless @articles.first.position == article.position %>
+        <%= (link_to "Down", down_article_path(article))unless @articles.last.position == article.position %>
         <%= link_to 'Destroy', article_path(article), :confirm => 'Are you sure?', :method => :delete %>
       </span>
       <span class="handle">[change article order? just drag and drop ]</span>
-      
     </li>
   <% end %>
 </ul>
